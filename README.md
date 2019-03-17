@@ -20,5 +20,16 @@ $ cd ~/secrets && ./pull-secrets.sh
 
 ## Developing Locally
 ```
+# build the image
 docker build -t workstation:latest .
+
+# run the image
+docker run --name workstation -p "2222:2222" workstation:latest
+
+# connect
+ssh root@localhost -p 2222
+mosh root@localhost -p 2222
 ```
+
+### Misc
+* kill all running docker instances `docker kill $(docker ps -q)`
