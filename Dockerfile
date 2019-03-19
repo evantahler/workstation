@@ -1,32 +1,19 @@
-### install kubectl ###
-FROM ubuntu:18.10 as kubectl_builder
-RUN apt-get update && apt-get install -y curl ca-certificates
-RUN curl -L -o /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
-RUN chmod 755 /usr/local/bin/kubectl
+FROM ubuntu:18.10
 
-### install 1password ###
-FROM ubuntu:18.10 as onepassword_builder
-RUN apt-get update && apt-get install -y curl ca-certificates unzip
-RUN curl -sS -o 1password.zip https://cache.agilebits.com/dist/1P/op/pkg/v0.5.5/op_linux_amd64_v0.5.5.zip && unzip 1password.zip op -d /usr/bin &&  rm 1password.zip
-
-### install doctl ###
-FROM ubuntu:18.10 as doctl_builder
-RUN apt-get update && apt-get install -y wget ca-certificates
-RUN wget https://github.com/digitalocean/doctl/releases/download/v1.12.2/doctl-1.12.2-linux-amd64.tar.gz && tar xf doctl-1.12.2-linux-amd64.tar.gz && chmod +x doctl && mv doctl /usr/local/bin && rm doctl-1.12.2-linux-amd64.tar.gz
-
-### install terraform ###
-FROM ubuntu:18.10 as terraform_builder
-RUN apt-get update && apt-get install -y wget ca-certificates unzip
-RUN wget https://releases.hashicorp.com/terraform/0.11.11/terraform_0.11.11_linux_amd64.zip && unzip terraform_0.11.11_linux_amd64.zip && chmod +x terraform && mv terraform /usr/local/bin && rm terraform_0.11.11_linux_amd64.zip
+ENV LANG="en_US.UTF-8"
+ENV LANGUAGE="en_US.UTF-8"
+ENV TERM screen-256color
+ENV WORKSTATION_SSH_PORT 2222
+ENV WORKSTATION_MOSH_PORT_RANGE 60000-60010
 
 ### OS & Tools ###
-FROM ubuntu:18.10
 RUN apt-get update && apt-get upgrade -y && apt-get install -qq -y \
   build-essential \
   clang \
 	cmake \
 	curl \
   git \
+  jq \
   htop \
   iftop \
   less \
@@ -35,22 +22,24 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -qq -y \
   vim \
   tmux
 
-ENV LANG="en_US.UTF-8"
-ENV LANGUAGE="en_US.UTF-8"
-ENV TERM screen-256color
-ENV WORKSTATION_SSH_PORT 2222
-ENV WORKSTATION_MOSH_PORT_RANGE 60000-60010
-
+### SSH & Keys ###
 RUN mkdir /run/sshd
 RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 RUN sed 's/#Port 22/Port '"$WORKSTATION_SSH_PORT"'/' -i /etc/ssh/sshd_config
 RUN sed 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/' -i /etc/ssh/sshd_config
 RUN sed 's/#PermitRootLogin prohibit-password/PermitRootLogin prohibit-password/' -i /etc/ssh/sshd_config
 
-### SSH Keys ###
 RUN mkdir -p ~/.ssh
 COPY authorized_keys /root/.ssh/authorized_keys
 RUN chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys
+
+### install 1password ###
+RUN apt-get update && apt-get install -y curl ca-certificates unzip
+RUN curl -sS -o 1password.zip https://cache.agilebits.com/dist/1P/op/pkg/v0.5.5/op_linux_amd64_v0.5.5.zip && unzip 1password.zip op -d /usr/bin &&  rm 1password.zip
+
+### install doctl ###
+RUN apt-get update && apt-get install -y wget ca-certificates
+RUN wget https://github.com/digitalocean/doctl/releases/download/v1.12.2/doctl-1.12.2-linux-amd64.tar.gz && tar xf doctl-1.12.2-linux-amd64.tar.gz && chmod +x doctl && mv doctl /usr/local/bin && rm doctl-1.12.2-linux-amd64.tar.gz
 
 ### Developer Tools ###
 
