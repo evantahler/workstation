@@ -2,8 +2,11 @@
 
 set -eu
 
-export 1PASSWORD_ACCOUNT="evantahler@gmail.com"
 export 1PASSWORD_DOMAIN="https://my.1password.com"
+# export 1PASSWORD_ACCOUNT="you@gmail.com"
+echo "Enter 1Password account email"
+read 1PASSWORD_ACCOUNT
+echo "OK, $1PASSWORD_ACCOUNT.  You will be prompted for you 1Password password next..."
 
 echo "Authenticating with 1Password"
 export OP_SESSION_my=$(op signin $1PASSWORD_DOMAIN $1PASSWORD_ACCOUNT --output=raw)

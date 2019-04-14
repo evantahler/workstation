@@ -1,3 +1,7 @@
 .DS_Store
 tmp
 log
+id_rsa
+id_ras.pub
+workstation_id_rsa
+workstation_id_rsa.pub

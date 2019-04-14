@@ -6,6 +6,9 @@ ENV TERM screen-256color
 ENV WORKSTATION_SSH_PORT 2222
 ENV WORKSTATION_MOSH_PORT_RANGE 60000-60010
 
+ENV NODE_VERSION 10
+ENV RUBY_VERSION 2.5.0
+
 ### OS & Tools ###
 RUN apt-get update && apt-get upgrade -y && apt-get install -qq -y \
   build-essential \
@@ -37,14 +40,9 @@ RUN chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys
 RUN apt-get update && apt-get install -y curl ca-certificates unzip
 RUN curl -sS -o 1password.zip https://cache.agilebits.com/dist/1P/op/pkg/v0.5.5/op_linux_amd64_v0.5.5.zip && unzip 1password.zip op -d /usr/bin &&  rm 1password.zip
 
-### install doctl ###
-RUN apt-get update && apt-get install -y wget ca-certificates
-RUN wget https://github.com/digitalocean/doctl/releases/download/v1.12.2/doctl-1.12.2-linux-amd64.tar.gz && tar xf doctl-1.12.2-linux-amd64.tar.gz && chmod +x doctl && mv doctl /usr/local/bin && rm doctl-1.12.2-linux-amd64.tar.gz
-
 ### Developer Tools ###
 
 # node, nvm, and yarn
-ENV NODE_VERSION 10
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
 RUN . /root/.nvm/nvm.sh && nvm install $NODE_VERSION
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
@@ -52,7 +50,6 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources
 RUN apt-get update && apt-get install --no-install-recommends yarn
 
 # rbenv and ruby
-ENV RUBY_VERSION 2.5.0
 RUN apt-get update && apt-get upgrade -y && apt-get install -qq -y \
   autoconf \
   bison \
