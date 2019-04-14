@@ -14,8 +14,8 @@ Inspired by:
 
 ## 1Password and SSH
 This Docker image will use 1Password to sync SSH keys!  This assumes:
-* `workstation_id_rsa` is a 1Password document
-* `workstation_id_rsa.pub` is a 1Password document
+* `workstation_id_rsa` is a 1Password document (note the type should be `document`, not `note`, etc)
+* `workstation_id_rsa.pub` is a 1Password document (note the type should be `document`, not `note`, etc)
 * generate these new SSH keys via `ssh-keygen -t rsa -b 4096 -C "you@example.com"`  
 
 ## SSH via mosh:
