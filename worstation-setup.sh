@@ -2,14 +2,14 @@
 
 set -eu
 
-export 1PASSWORD_DOMAIN="https://my.1password.com"
-# export 1PASSWORD_ACCOUNT="you@gmail.com"
+export ONE_PASSWORD_DOMAIN="https://my.1password.com"
+# export ONE_PASSWORD_ACCOUNT="you@gmail.com"
 echo "Enter 1Password account email"
-read 1PASSWORD_ACCOUNT
-echo "OK, $1PASSWORD_ACCOUNT.  You will be prompted for you 1Password password next..."
+read ONE_PASSWORD_ACCOUNT
+echo "OK, $ONE_PASSWORD_ACCOUNT.  You will be prompted for you 1Password password next..."
 
 echo "Authenticating with 1Password"
-export OP_SESSION_my=$(op signin $1PASSWORD_DOMAIN $1PASSWORD_ACCOUNT --output=raw)
+export OP_SESSION_my=$(op signin $ONE_PASSWORD_DOMAIN $ONE_PASSWORD_ACCOUNT --output=raw)
 
 echo "Pulling secrets"
 # private keys
