@@ -12,8 +12,8 @@ cd ~/workspace
 git clone --recursive $GIT_PROJECT_URL
 
 # symlinks
-echo "linking 'worstation-setup' command"
-ln -s ~/workspace/workstation/worstation-setup.sh /usr/local/bin/worstation-setup
+echo "linking 'workstation-setup' command"
+ln -s ~/workspace/workstation/workstation-setup.sh /usr/local/bin/workstation-setup
 
 # Run the fnial docker entrypoint command
 echo "*** starting up SSH on port $WORKSTATION_SSH_PORT ***"
