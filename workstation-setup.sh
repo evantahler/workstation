@@ -23,4 +23,6 @@ mv $(pwd)/id_rsa ~/.ssh/id_rsa
 mv $(pwd)/id_rsa.pub ~/.ssh/id_rsa.pub
 chmod 0600 ~/.ssh/id_rsa
 
+echo "ssh keys configured"
+
 echo "Done!"
