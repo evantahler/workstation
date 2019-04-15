@@ -4,6 +4,8 @@ FROM codercom/code-server:1.621
 ## Build our Ubuntu Image
 FROM ubuntu:18.10
 
+ARG BUILD_SERVER_SSH_PUBLIC_KEY
+
 ENV LANG="en_US.UTF-8"
 ENV LANGUAGE="en_US.UTF-8"
 ENV TERM screen-256color
