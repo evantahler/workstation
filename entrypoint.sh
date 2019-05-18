@@ -19,16 +19,4 @@ ln -s ~/workspace/workstation/workstation-setup.sh /usr/local/bin/workstation-se
 echo "*** Starting up SSH on port $WORKSTATION_SSH_PORT and Code Server ***"
 
 /usr/sbin/sshd  -D
-status=$?
-if [ $status -ne 0 ]; then
-  echo "Failed to start sshd: $status"
-  exit $status
-fi
-
-# Start the second process
-cd /root/workspace && code-server .
-status=$?
-if [ $status -ne 0 ]; then
-  echo "Failed to start code-server: $status"
-  exit $status
-fi
+cd /root/workspace && code-server
