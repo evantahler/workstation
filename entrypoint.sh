@@ -15,8 +15,8 @@ git clone --recursive $GIT_PROJECT_URL
 echo "linking 'workstation-setup' command"
 ln -s ~/workspace/workstation/workstation-setup.sh /usr/local/bin/workstation-setup
 
-# Run the fnial docker entrypoint command
-echo "*** Starting up SSH on port $WORKSTATION_SSH_PORT and Code Server ***"
-
+echo "*** Starting up SSH on port $WORKSTATION_SSH_PORT"
 /usr/sbin/sshd  -D
+
+echo "*** Starting Code Server *** ***"
 cd /root/workspace && code-server
