@@ -16,5 +16,6 @@ echo "linking 'workstation-setup' command"
 ln -s ~/workspace/workstation/workstation-setup.sh /usr/local/bin/workstation-setup
 
 # Run the fnial docker entrypoint command
-echo "*** starting up SSH on port $WORKSTATION_SSH_PORT ***"
-/usr/sbin/sshd -D
+echo "*** starting up SSH on port $WORKSTATION_SSH_PORT and Code Server***"
+/usr/sbin/sshd -D 
+cd ~/workspace && code-server .
