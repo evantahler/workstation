@@ -55,6 +55,8 @@ RUN curl -sS -o 1password.zip https://cache.agilebits.com/dist/1P/op/pkg/$ONE_PA
 RUN mkdir -p /root/.local/share/code-server
 RUN mkdir -p /root/.cache/code-server
 COPY --from=0 /usr/local/bin/code-server /usr/local/bin/code-server
+# Hack needed -> https://github.com/cdr/code-server/issues/499
+RUN mkdir -p /User/workspaceStorage
 
 # node, nvm, and yarn
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
