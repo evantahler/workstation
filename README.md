@@ -16,7 +16,7 @@ Inspired by:
 This Docker image will use 1Password to sync SSH keys!  This assumes:
 * `workstation_id_rsa` is a 1Password document (note the type should be `document`, not `note`, etc)
 * `workstation_id_rsa.pub` is a 1Password document (note the type should be `document`, not `note`, etc)
-* generate these new SSH keys via `ssh-keygen -t rsa -b 4096 -C "you@example.com"`  
+* generate these new SSH keys via `ssh-keygen -t rsa -b 4096 -C "you@example.com"`
 
 ## SSH via mosh:
 ```
@@ -29,19 +29,22 @@ Ensure you have an `~/.ssh/id_rsa.pub` on the host you are building the image fr
 
 ```
 # build the image (with your SSH key authorized)
-docker build -t workstation:latest . --build-arg BUILD_SERVER_SSH_PUBLIC_KEY="$(cat ~/.ssh/id_rsa.pub)"
+docker build -t evantahler/workstation:latest . --build-arg BUILD_SERVER_SSH_PUBLIC_KEY="$(cat ~/.ssh/id_rsa.pub)"
 
 # run the image
-docker run --name workstation -p "2222:2222" -p "8443:8443" workstation:latest
+docker run --name evantahler/workstation -p "2222:2222" -p "8443:8443" workstation:latest
 
 # connect
 ssh root@localhost -p 2222
 mosh root@localhost -p 2222
+
+# (optional) push it
+docker push evantahler/workstation:latest
 ```
 
 ## Code Server
-1. Navigate to the folder you want to open and then run `code-server` in the directory.  ie, `cd ~/workspace/workstation/ && code-server`.  
-2. If you want to keep the server running, use `tmux` or `sceen`.  
+1. Navigate to the folder you want to open and then run `code-server` in the directory.  ie, `cd ~/workspace/workstation/ && code-server`.
+2. If you want to keep the server running, use `tmux` or `sceen`.
 3. Running this command will generate a password for the web interface.
 
 ## Build Options
