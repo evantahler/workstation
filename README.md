@@ -29,17 +29,17 @@ Ensure you have an `~/.ssh/id_rsa.pub` on the host you are building the image fr
 
 ```
 # build the image (with your SSH key authorized)
-docker build -t evantahler/workstation:latest . --build-arg BUILD_SERVER_SSH_PUBLIC_KEY="$(cat ~/.ssh/id_rsa.pub)"
+docker build -t workstation:latest . --build-arg BUILD_SERVER_SSH_PUBLIC_KEY="$(cat ~/.ssh/id_rsa.pub)"
 
 # run the image
-docker run --name evantahler/workstation -p "2222:2222" -p "8443:8443" workstation:latest
+docker run --name workstation -p "2222:2222" -p "8443:8443" workstation:latest
 
 # connect
 ssh root@localhost -p 2222
 mosh root@localhost -p 2222
 
 # (optional) push it
-docker push evantahler/workstation:latest
+docker tag workstation:latest {yourname}/workstation:latest
 ```
 
 ## Code Server
