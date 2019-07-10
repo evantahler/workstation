@@ -9,6 +9,7 @@ echo "Starting up..."
 # clone this repo to the machine so it has latest configs
 echo "Pulling latest project files from $GIT_PROJECT_URL"
 cd ~/workspace
+rm -rf $GIT_PROJECT_URL
 git clone --recursive $GIT_PROJECT_URL
 
 # symlinks
