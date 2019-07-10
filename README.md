@@ -40,6 +40,7 @@ mosh root@localhost -p 2222
 
 # (optional) push it
 docker tag workstation:latest {yourname}/workstation:latest
+docker push {yourname}/workstation:latest
 ```
 
 ## Code Server
